@@ -5,11 +5,9 @@ import styled, {
     createGlobalStyle,
     ThemeProvider,
 } from "styled-components";
-import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { darktheme, lighttheme } from "./theme";
+import { darktheme } from "./theme";
 import {useRecoilValue} from "recoil";
-import { isDarkAtom } from "./atoms";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -74,26 +72,10 @@ a {
 }
 `;
 
-// const ThemeSwitchBtn = styled.button`
-//     grid-template-columns: repeat(2, 1fr);
-//     gap: 10px;
-//     border-radius: 10px;
-//     border: 3px;
-//     align-items: center;
-//     &:hover {
-//         color: ${(props) => props.theme.accentColor};
-//     }
-// `;
-
 function App() {
-const isDark = useRecoilValue(isDarkAtom)
     return (
         <>
-            <ThemeProvider theme={isDark ? darktheme: lighttheme}>
                 <GlobalStyle />
-                <Router />
-                <ReactQueryDevtools initialIsOpen={true} />
-            </ThemeProvider>
         </>
     );
 }

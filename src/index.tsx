@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "styled-components";
 import App from "./App";
 import {RecoilRoot} from "recoil";
+import { darktheme } from "./theme";
 
 // const rootElement = document.getElementById('root');
 // if (!rootElement) throw new Error('Failed to find the root element');
@@ -16,11 +17,9 @@ const queryClient = new QueryClient();
 ReactDOM.render(
     <React.StrictMode>
         <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
-            {/* <ThemeProvider theme={lighttheme}> */}
+            <ThemeProvider theme={darktheme}>
                 <App />
-            {/* </ThemeProvider> */}
-        </QueryClientProvider>
+            </ThemeProvider>
         </RecoilRoot>
     </React.StrictMode>,
     document.getElementById("root")
