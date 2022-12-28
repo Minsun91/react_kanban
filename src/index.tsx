@@ -2,7 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
+// import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "styled-components";
 import App from "./App";
 import {RecoilRoot} from "recoil";
@@ -12,7 +12,7 @@ import { darktheme } from "./theme";
 // if (!rootElement) throw new Error('Failed to find the root element');
 // const root = ReactDOM.createRoot(rootElement); -> 이거 v5일때인가? 그러면 root.render로 아래도 바뀌어야함
 
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
 ReactDOM.render(
     <React.StrictMode>

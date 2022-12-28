@@ -1,13 +1,12 @@
 // 컴포넌트 정의하는 프로그램으로 실제로 화면에 표시되는 내용은 여기서 정의된다.
 
 import React from "react";
-import styled, {
-    createGlobalStyle,
-    ThemeProvider,
+import {
+    createGlobalStyle
 } from "styled-components";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { darktheme } from "./theme";
-import {useRecoilValue} from "recoil";
+// import { ReactQueryDevtools } from "react-query/devtools";
+// import { darktheme } from "./theme";
+import TodoList from "./TodoList";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -76,6 +75,7 @@ function App() {
     return (
         <>
                 <GlobalStyle />
+                <TodoList />
         </>
     );
 }
