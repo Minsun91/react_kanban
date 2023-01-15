@@ -6,7 +6,7 @@ import {
 } from "styled-components";
 // import { ReactQueryDevtools } from "react-query/devtools";
 // import { darktheme } from "./theme";
-import TodoList from "./TodoList";
+import TodoList from "./components/TodoList";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
