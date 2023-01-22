@@ -1,10 +1,22 @@
 import { atom, selector } from "recoil";
 
+type categories = "DONE" | "DOING" | "TODO"
+
+export enum Categories {
+    "TODO" = "TODO",
+    "DOING" = "DOING",
+    "DONE"= "DONE"
+}
+
 export interface IToDo {
     text: string;
     id: number;
-    category: "DONE" | "DOING" | "TODO";
+    category: categories;
 }
+export const categoryState = atom<categories>({
+    key: "category",
+    default:  "TODO",
+});
 
 export const toDoState = atom<IToDo[]>({
     key: "toDo",
@@ -13,8 +25,9 @@ export const toDoState = atom<IToDo[]>({
 
 export const toDoSelector = selector({
     key: "toDoSelector",
-    get: ({ get }) => {
+    get: ({ get }) => { //get function은 selector가 어떤 것을 반환할지 결정
         const toDos = get(toDoState);
-        return [toDos.filter((toDo) => toDo.category === "TODO"), toDos.filter((toDo) => toDo.category === "DOING"), toDos.filter((toDo)=> toDo.category === "DONE") ];
+        const category = get(categoryState);
+        return toDos.filter((toDo)=> toDo.category === category);
     },
 });

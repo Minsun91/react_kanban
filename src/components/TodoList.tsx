@@ -1,38 +1,32 @@
-import { useRecoilValue } from "recoil";
-import { toDoSelector, toDoState } from "../atoms";
+import React from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { Categories, categoryState, toDoSelector, toDoState } from "../atoms";
 import CreateTodo from "./CreateTodo";
 import ToDo from "./ToDo";
 
 function ToDoList() {
-    const [toDo, doing, done]= useRecoilValue(toDoSelector)
+    const toDos = useRecoilValue(toDoSelector);
+    const [category, setCategory] = useRecoilState(categoryState);
+    const onInPut = (event: React.FormEvent<HTMLSelectElement>) => {
+        setCategory(event.currentTarget.value as any);
+    };
+    console.log(toDos);
     // const toDos = useRecoilValue(toDoState);
     // const selectorOutput = useRecoilValue(toDoSelector)
     // console.log(selectorOutput)
     return (
         <div>
-            <h1>To Dos</h1>
+            <h1>To Do List</h1>
             <hr />
+            <select value={category} onInput={onInPut}>
+                <option value={Categories.TODO}> To Do </option>
+                <option value={Categories.DOING}> Doing </option>
+                <option value={Categories.DONE}> Done </option>
+            </select>
             <CreateTodo />
-            <h2>To Do </h2>
-            <ul> 
-                {toDo.map((toDo)=> (
-                    <ToDo key={toDo.id} {...toDo} />
-                ))}
-            </ul>
-            <hr />
-            <h2>Doing</h2>
-            <ul> 
-                {doing.map((toDo)=> (
-                    <ToDo key={toDo.id} {...toDo} />
-                ))}
-            </ul>
-            <hr />
-            <h2>Done</h2>
-            <ul> 
-                {done.map((toDo)=> (
-                    <ToDo key={toDo.id} {...toDo} />
-                ))}
-            </ul>
+            {toDos?.map((toDo) => (
+                <ToDo key={toDo.id} {...toDo} />
+            ))}
         </div>
     );
 }
@@ -66,17 +60,17 @@ function ToDoList() {
 //             <form
 //                 style={{ display: "flex", flexDirection: "column" }}
 //                 onSubmit={handleSubmit(onValid)}>
-                // <input
-                //     {...register("Email", {
-                //         required: "Email is required",
-                //         minLength: 10,
-                //         pattern: {
-                //             value: /^[A-Za-z0-9._%+-]+@gmail.com$/,
-                //             message: "Only gmail.com is allowed.",
-                //         },
-                //     })}
-                //     placeholder="Email"
-                // />
+// <input
+//     {...register("Email", {
+//         required: "Email is required",
+//         minLength: 10,
+//         pattern: {
+//             value: /^[A-Za-z0-9._%+-]+@gmail.com$/,
+//             message: "Only gmail.com is allowed.",
+//         },
+//     })}
+//     placeholder="Email"
+// />
 //                 <span>{errors?.Email?.message}</span>
 
 //                 <input
