@@ -10,7 +10,7 @@ function ToDoList() {
     const onInPut = (event: React.FormEvent<HTMLSelectElement>) => {
         setCategory(event.currentTarget.value as any);
     };
-    console.log(toDos);
+
     // const toDos = useRecoilValue(toDoState);
     // const selectorOutput = useRecoilValue(toDoSelector)
     // console.log(selectorOutput)

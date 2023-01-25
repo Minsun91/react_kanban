@@ -1,9 +1,8 @@
 // 컴포넌트 정의하는 프로그램으로 실제로 화면에 표시되는 내용은 여기서 정의된다.
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import React from "react";
-import {
-    createGlobalStyle
-} from "styled-components";
+import { createGlobalStyle } from "styled-components";
 // import { ReactQueryDevtools } from "react-query/devtools";
 // import { darktheme } from "./theme";
 import TodoList from "./components/TodoList";
@@ -74,8 +73,21 @@ a {
 function App() {
     return (
         <>
-                <GlobalStyle />
-                <TodoList />
+            <DragDropContext onDragEnd={onDragEnd}>
+                <div>
+                    <Droppable droppableId="one">
+                        {() => (
+                            <ul>
+                                <Draggable draggableId="first" index={0}>{() => <li>One</li>}</Draggable>
+                                <Draggable draggableId="second" index={1}>{() => <li>Two</li>}</Draggable>
+
+                            </ul>
+                        )}
+                    </Droppable>
+                </div>
+                {/* <GlobalStyle />
+                <TodoList /> */}
+            </DragDropContext>
         </>
     );
 }
