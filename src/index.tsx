@@ -15,12 +15,12 @@ import { darktheme } from "./theme";
 // const queryClient = new QueryClient();
 
 ReactDOM.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <RecoilRoot>
             <ThemeProvider theme={darktheme}>
                 <App />
             </ThemeProvider>
-        </RecoilRoot>
-    </React.StrictMode>,
+        </RecoilRoot>,
+    // </React.StrictMode>,
     document.getElementById("root")
 );
