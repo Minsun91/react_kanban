@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 // import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "styled-components";
-import App from "./App";
+import App, { GlobalStyle } from "./App";
 import {RecoilRoot} from "recoil";
 import { darktheme } from "./theme";
 
@@ -18,6 +18,7 @@ ReactDOM.render(
     // <React.StrictMode>
         <RecoilRoot>
             <ThemeProvider theme={darktheme}>
+            <GlobalStyle />
                 <App />
             </ThemeProvider>
         </RecoilRoot>,

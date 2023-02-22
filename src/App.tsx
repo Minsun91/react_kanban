@@ -1,13 +1,13 @@
 // 컴포넌트 정의하는 프로그램으로 실제로 화면에 표시되는 내용은 여기서 정의된다.
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, DropResult } from "react-beautiful-dnd";
 import styled from "styled-components";
 import React from "react";
 import { createGlobalStyle } from "styled-components";
-// import { ReactQueryDevtools } from "react-query/devtools";
-// import { darktheme } from "./theme";
-import TodoList from "./components/TodoList";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { toDoState } from "./atoms";
+import Board from "./components/Boards";
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -71,60 +71,41 @@ a {
 `;
 const Wrapper = styled.div`
     display: flex;
-    max-width: 480px;
-    width: 100%;
+    max-width: 680px;
+    width: 100vw;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
     height: 100vh;
 `;
-const Board = styled.div`
-    padding: 20px 10px;
-    padding-top: 30px;
-    background-color: ${(props) => props.theme.boardColor};
-    border-radius: 5px;
-    min-height: 200px;
-`;
+
 const Boards = styled.div`
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(1, 1fr);
+    gap : 10px;
+    grid-template-columns: repeat(3, 1fr);
 `;
-const Card = styled.div`
-    border-radius: 5px;
-    margin-bottom: 5px;
-    padding: 10px 10px;    
-    background-color: ${(props) => props.theme.cardColor};
-`;
-const toDos = ["1", "2", "3", "4", "5", "6"];
+
 
 function App() {
-    const onDragEnd = () => {};
+  const [toDos, setToDos] = useRecoilState(toDoState);
+    const onDragEnd = ({draggableId, destination, source}:DropResult) => {
+      if(!destination) return;
+      // setToDos((oldToDos)=>{
+      //   const toDosCopy = [...oldToDos];
+      //   toDosCopy.splice(source.index,1); //바뀌기 이전 배열에서 드랍 후 인덱스 제거
+      //   toDosCopy.splice(destination.index,0,draggableId); //드랍 후 인덱스를 드랍한 곳에 추가
+      //   // console.log("Delete item on", source.index);
+      //   // console.log("Put back", draggableId, "on ", destination.index);
+      //   // console.log(toDosCopy);
+      //   return toDosCopy;
+      // })
+    };
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <Wrapper>
                 <Boards>
-                    <Droppable droppableId="one">
-                        {(magic) => (
-                            <Board
-                                ref={magic.innerRef}
-                                {...magic.droppableProps}>
-                                {toDos.map((toDo, index) => (
-                                    <Draggable draggableId={toDo} index={index}>
-                                        {(magic) => (
-                                            <Card
-                                                ref={magic.innerRef}
-                                                {...magic.draggableProps}
-                                                {...magic.dragHandleProps}>
-                                                {toDo}
-                                            </Card>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {magic.placeholder}
-                            </Board>
-                        )}
-                    </Droppable>
+                    {Object.keys(toDos).map((boardId) => (<Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />))}
                 </Boards>
             </Wrapper>
         </DragDropContext>
